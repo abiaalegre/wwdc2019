@@ -16,41 +16,38 @@ class GameScene : SKScene {
     }
     
     func createGrid(sceneSize : CGSize) -> [CAShapeLayer]{
-      
         
-        let lineHorizontal1 = Line()
-        let lineHorizontal2 = Line()
-        let lineVertical1 = Line()
-        let lineVertical2 = Line()
-        
-        print("AAAAA \(sceneSize)")
-        
+        let lines = [Line(), Line(), Line(), Line()]
+
         let margemX = (UIScreen.main.bounds.width - sceneSize.width) * 0.5
         let margemY = (UIScreen.main.bounds.height - sceneSize.height) * 0.5
-       
-        let y1 = margemY + sceneSize.height * 0.33
-        let y2 = margemY + sceneSize.height * 0.66
-        let x1 = margemX
-        let x2 = margemX + sceneSize.width
+        
+        //positions of horizontal lines
+        var y1 = margemY + sceneSize.height * 0.33
+        var x1 = margemX
+        var y2 = margemY + sceneSize.height * 0.66
+        var x2 = margemX + sceneSize.width
     
-        lineHorizontal1.createLine(posX: x1, posY: y1, finalX: x2, finalY: y1)
-        lineHorizontal2.createLine(posX: x1, posY: y2, finalX: x2, finalY: y2)
+        //horizontal lines
+        lines[0].createLine(posX: x1, posY: y1, finalX: x2, finalY: y1)
+        lines[1].createLine(posX: x1, posY: y2, finalX: x2, finalY: y2)
         
         
-        lineVertical1.createLine(posX: margemX + sceneSize.width * 0.33, posY: margemY, finalX: margemX + sceneSize.width * 0.33, finalY: margemY + sceneSize.height)
+        //positions of vertical lines
+        y1 = margemY
+        y2 = margemY + sceneSize.height
+        x1 = margemX + sceneSize.width * 0.33
+        x2 = margemX + sceneSize.width * 0.66
+        //vertical lines
+        lines[2].createLine(posX: x1, posY: margemY, finalX: x1, finalY: margemY + sceneSize.height)
+        lines[3].createLine(posX: x2, posY: margemY, finalX: x2, finalY: margemY + sceneSize.height)
         
-        lineVertical2.createLine(posX: margemX + sceneSize.width * 0.66, posY: margemY, finalX: margemX + sceneSize.width * 0.66, finalY: margemY + sceneSize.height)
+        //animate lines
+        lines.forEach { (line) in
+            line.animate()
+        }
         
-//
-//        lineHorizontal1.createLine(posX: bounds.width * 0.1, posY: bounds.height * 0.4, newValue:  bounds.width * 0.9, direction: 1)
-//        lineHorizontal2.createLine(posX: bounds.width * 0.1, posY: bounds.height * 0.6, newValue: bounds.width * 0.9, direction: 1)
-        
-        lineHorizontal1.animate()
-        lineHorizontal2.animate()
-        lineVertical1.animate()
-        lineVertical2.animate()
-        
-        return [lineHorizontal1, lineHorizontal2, lineVertical1, lineVertical2]
+        return lines
         
     }
     

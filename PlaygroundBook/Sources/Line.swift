@@ -23,12 +23,9 @@ class Line : CAShapeLayer{
         self.strokeColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         self.lineWidth = 4
         
-        
         let path = UIBezierPath()
-        
         path.move(to: CGPoint(x: posX, y: posY))
         path.addLine(to: CGPoint(x: finalX, y: finalY))
-        
         
         self.path = path.cgPath
         
