@@ -4,7 +4,7 @@ import PlaygroundSupport
 
 
 @objc(C1P1)
-public class C1P1: UIViewController, PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer {
+public class C1P1: UIViewController, UIGestureRecognizerDelegate,PlaygroundLiveViewMessageHandler, PlaygroundLiveViewSafeAreaContainer {
     
     var sceneView : SKView!
     var scene : GameScene?
@@ -14,6 +14,11 @@ public class C1P1: UIViewController, PlaygroundLiveViewMessageHandler, Playgroun
     public override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTap(_:)))
+        tap.delegate = self // This is not required
+        view.addGestureRecognizer(tap)
+        
         let bounds = UIScreen.main.bounds
         
         let lowerValue = bounds.width > bounds.height ? bounds.height : bounds.width
@@ -53,5 +58,10 @@ public class C1P1: UIViewController, PlaygroundLiveViewMessageHandler, Playgroun
         }
         self.drawGrid()
     }
-}
+    
+    @objc func didTap(_ sender: UITapGestureRecognizer) {
+        
+        print("tap location \(sender.location(in: self.view))")
+        
+    }}
 
