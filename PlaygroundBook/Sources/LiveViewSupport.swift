@@ -17,8 +17,10 @@ public func instantiateLiveView(pageIdentifier: (Int,Int)) -> PlaygroundLiveView
     
     switch pageIdentifier {
     case (1,1):
+        print("view controller 1")
         liveViewControler = C1P1()
     case (1,2):
+        print("view controller 2")
         liveViewControler = C1P2()
     default:
         fatalError("A valid ViewController on LiveView.storyboard could not be found.")

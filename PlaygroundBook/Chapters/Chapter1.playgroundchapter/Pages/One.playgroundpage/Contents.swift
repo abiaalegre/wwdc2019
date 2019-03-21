@@ -1,1 +1,1 @@
-//: [Next Topic](@next)
+//: [Shall we?](@next) ☺️

@@ -20,7 +20,7 @@ class AppDelegate: LiveViewHost.AppDelegate {
         // changing the implementation of the `liveViewConfiguration` property below.
         
         //print(Book_Sources.instantiateLiveView(pageIdentifier: (1,1)))
-        return Book_Sources.instantiateLiveView(pageIdentifier: (1,1))
+        return Book_Sources.instantiateLiveView(pageIdentifier: (1,2))
     }
 
     override var liveViewConfiguration: LiveViewConfiguration {
