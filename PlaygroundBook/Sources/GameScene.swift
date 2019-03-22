@@ -41,7 +41,7 @@ class GameScene : SKScene {
         scene.addChild(treeNode)
         
         //carregando sprite do newton
-        newtonSprite = loadSprite(imageName: "newton", sizePercentage: 0.3, animated: true, frames: 1)
+        newtonSprite = loadSprite(imageName: "newton", sizePercentage: 0.3, animated: true, frames: 2)
         
         let newtonNode = newtonSprite.node
         newtonNode.position = CGPoint(x: windowSize.width * 0.6, y:  newtonNode.size.height/2)
@@ -50,7 +50,9 @@ class GameScene : SKScene {
         //newtonNode.physicsBody?.pinned = true
         newtonNode.physicsBody?.isDynamic = false
         newtonNode.physicsBody?.categoryBitMask = PhysicsCategories.newton
+        newtonNode.physicsBody?.contactTestBitMask = PhysicsCategories.apple
         newtonNode.physicsBody?.collisionBitMask = PhysicsCategories.apple
+
         //adicinando o newton na cena
         scene.addChild(newtonNode)
         
@@ -127,21 +129,30 @@ class GameScene : SKScene {
         
     }
     
+    func ouchAnimation(){
+        let wait = SKAction.wait(forDuration: 0.5)
+        let ouch = SKAction.setTexture(newtonSprite.animations[1])
+        let idle = SKAction.setTexture(newtonSprite.animations[0])
+        
+        let animation = SKAction.sequence([ouch, wait, idle])
+        newtonSprite.node.run(animation)
+    }
+    
 }
 
 extension GameScene : SKPhysicsContactDelegate{
 
     public func didBegin(_ contact: SKPhysicsContact) {
-        print("contato")
+
         let bodyA = contact.bodyA.categoryBitMask
         let bodyB = contact.bodyB.categoryBitMask
 
         if bodyA == PhysicsCategories.newton && bodyB == PhysicsCategories.apple{
-            newtonSprite.node.run(SKAction.setTexture(newtonSprite.animations[1]))
+            ouchAnimation()
         }
 
         if bodyA == PhysicsCategories.apple && bodyB == PhysicsCategories.newton{
-            newtonSprite.node.run(SKAction.setTexture(newtonSprite.animations[1]))
+            ouchAnimation()
         }
 
     }
